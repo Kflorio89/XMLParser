@@ -83,31 +83,31 @@ namespace XMLParser
 
         public void fillxml(out string XML)
         {
-            XML = @" < soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" >
-    < soap:Body >
-         < ns1:saveDCPResponse xmlns:ns1 = ""http://mes.health.ge.com"" >
-              < ns1:out>
-                   < consumedPartsResults xmlns = ""http://saveDCP.mes.health.ge.com"" xsi: nil = ""true"" />
-                       < dCPResults xmlns = ""http://saveDCP.mes.health.ge.com"" >
-                            < OutputDCP >
-                                < dcpResult > ACCEPT </ dcpResult >
-                                < dctTag > TAG003 </ dctTag >
-                            </ OutputDCP >
-                            < OutputDCP >
-                                < dcpResult > ACCEPT </ dcpResult >
-                                < dctTag > TAG002 </ dctTag >
-                            </ OutputDCP >
-                            < OutputDCP >
-                                < dcpResult > ACCEPT </ dcpResult >
-                                < dctTag > TAG001 </ dctTag >
-                            </ OutputDCP >
-                        </ dCPResults >
-                        < errorCode xmlns = ""http://saveDCP.mes.health.ge.com"" > 500 </ errorCode >
-                         < errorMessage xmlns = ""http://saveDCP.mes.health.ge.com"" > DCP saved without complete </ errorMessage >
-                          </ ns1:out>
-                       </ ns1:saveDCPResponse >
-                    </ soap:Body >
-                 </ soap:Envelope > ";
+            XML = @"<soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+    <soap:Body>
+         <ns1:saveDCPResponse xmlns:ns1=""http://mes.health.ge.com"">
+              <ns1:out>
+                   <consumedPartsResults xmlns =""http://saveDCP.mes.health.ge.com""xsi:nil=""true""/>
+                       <dCPResults xmlns=""http://saveDCP.mes.health.ge.com"">
+                            <OutputDCP>
+                                <dcpResult>ACCEPT</dcpResult>
+                                <dctTag>TAG003</dctTag>
+                            </OutputDCP>
+                            <OutputDCP>
+                                <dcpResult>ACCEPT</dcpResult>
+                                <dctTag>TAG002</dctTag>
+                            </OutputDCP>
+                            <OutputDCP>
+                                <dcpResult>ACCEPT</dcpResult>
+                                <dctTag>TAG001</dctTag>
+                            </OutputDCP>
+                        </dCPResults>
+                        <errorCode xmlns=""http://saveDCP.mes.health.ge.com"">500</errorCode>
+                         <errorMessage xmlns=""http://saveDCP.mes.health.ge.com"">DCP saved without complete </ errorMessage >
+                          </ns1:out>
+                       </ns1:saveDCPResponse>
+                    </soap:Body>
+                 </soap:Envelope>";
         }
     }
 }
@@ -175,50 +175,30 @@ var messagesList = (from message in messagesElement.Elements("message")
    <soapenv:Body>
       <mes:saveDCP>
          <mes:in0>
-            <!--Optional:-->
             <sav:completeOperation>0</sav:completeOperation>
-            <!--Optional:-->
             <sav:consumedParts>
             </sav:consumedParts>
-            <!--Optional:-->
             <sav:dcps>
-               <!--Zero or more repetitions:-->
                <sav:DCP>
-                  <!--Optional:-->
                   <sav:dcpImportTag>TAG003</sav:dcpImportTag>
-                  <!--Optional:-->
                   <sav:dcpValue>3</sav:dcpValue>
                </sav:DCP>
-               <!--Zero or more repetitions:-->
                <sav:DCP>
-                  <!--Optional:-->
                   <sav:dcpImportTag>TAG002</sav:dcpImportTag>
-                  <!--Optional:-->
                   <sav:dcpValue>2</sav:dcpValue>
                </sav:DCP>
-               <!--Zero or more repetitions:-->
                <sav:DCP>
-                  <!--Optional:-->
                   <sav:dcpImportTag>TAG001</sav:dcpImportTag>
-                  <!--Optional:-->
                   <sav:dcpValue>1</sav:dcpValue>
                </sav:DCP>
             </sav:dcps>
-            <!--Optional:-->
             <sav:operationName>CTM_Gan-SubA</sav:operationName>
-            <!--Optional:-->
             <sav:partNumber>5454001-170-SUBSA</sav:partNumber>
-            <!--Optional:-->
             <sav:partRevision>N/A</sav:partRevision>
-            <!--Optional:-->
             <sav:password>D1NPnWPE5WwnE9vatgdNzUFICLN1WA3GM6UCLN1WA3GM6U</sav:password>
-            <!--Optional:-->
             <sav:reasonCode>PASS</sav:reasonCode>
-            <!--Optional:-->
             <sav:routeName>CTM_Gan_SubA</sav:routeName>
-            <!--Optional:-->
             <sav:serialNumber>WebTestAME001</sav:serialNumber>
-            <!--Optional:-->
             <sav:userID>555333333</sav:userID>
          </mes:in0>
       </mes:saveDCP>

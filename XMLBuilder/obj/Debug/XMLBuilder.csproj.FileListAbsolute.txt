@@ -1,0 +1,9 @@
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\bin\Debug\XMLBuilder.exe.config
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\bin\Debug\XMLBuilder.exe
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\bin\Debug\XMLBuilder.pdb
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\obj\Debug\XMLBuilder.csprojAssemblyReference.cache
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\obj\Debug\XMLBuilder.Form1.resources
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\obj\Debug\XMLBuilder.Properties.Resources.resources
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\obj\Debug\XMLBuilder.csproj.GenerateResource.cache
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\obj\Debug\XMLBuilder.exe
+C:\Users\kflor\source\repos\XMLParser\XMLBuilder\obj\Debug\XMLBuilder.pdb
