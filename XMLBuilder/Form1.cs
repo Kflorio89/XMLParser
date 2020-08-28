@@ -15,6 +15,8 @@ namespace XMLBuilder
 {
     public partial class Form1 : Form
     {
+        public List<string> itemNumbers = new List<string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -47,11 +49,59 @@ namespace XMLBuilder
                 doc.Save(sw);
                 xmldoc = sw.ToString();
             }*/
-            Output.Text = Thisshit();
+            ThatShit();
         }
 
+        public void ThatShit()
+        {
+            //string input = Input.Text.Trim().Replace("&", "&amp;");
+            string input = Input.Text.Trim();
+            List<string> activationList = new List<string>();
 
-        public string Thisshit()
+            while (true)
+            {
+                int startIndex = input.IndexOf("<ACTIVATION_CODE>");
+                if (startIndex < 0)
+                {
+                    break;
+                }
+                int endIndex = input.IndexOf("</ACTIVATION_CODE>");
+                int length = endIndex - (startIndex + 17);
+                activationList.Add(input.Substring(startIndex + 17, length));
+                input = input.Remove(startIndex, length + 35);
+            }
+
+            try
+            {
+                XElement str = XElement.Parse(input);
+                // find specific tag
+                foreach (XElement XE in str.Elements("ITEM_DETAILS"))
+                {
+                    string number = XE.Descendants("ITEM_NUMBER").FirstOrDefault()?.Value;
+                    string xmltag = XE.Descendants("XML_TAG").FirstOrDefault()?.Value;
+                    itemNumbers.Add(number);
+                }
+                Output.Text += "Item Numbers found:" + Environment.NewLine;
+                foreach (string item in itemNumbers)
+                {
+                    Output.Text += item + Environment.NewLine;
+                }
+                Output.Text += "End of item numbers found." + Environment.NewLine + Environment.NewLine;
+                Output.Text += "Start of activation code list." + Environment.NewLine;
+                foreach (string act in activationList)
+                {
+                    Output.Text += act + Environment.NewLine;
+                }
+                Output.Text += "End of activation code list." + Environment.NewLine;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception thrown when parsing. Message: " + ex.Message.ToString());
+            }
+        }
+
+        public string ThisShit()
         {
             StringBuilder xml = new StringBuilder();
             IDictionary<string, string> dict = new Dictionary<string, string>();
