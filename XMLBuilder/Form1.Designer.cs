@@ -61,7 +61,7 @@
             this.Output.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Output.Multiline = true;
             this.Output.Name = "Output";
-            this.Output.Size = new System.Drawing.Size(414, 1204);
+            this.Output.Size = new System.Drawing.Size(641, 1204);
             this.Output.TabIndex = 2;
             // 
             // label1
@@ -88,7 +88,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 1418);
+            this.ClientSize = new System.Drawing.Size(1420, 1418);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Output);

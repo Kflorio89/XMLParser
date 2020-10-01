@@ -20,6 +20,30 @@ namespace XMLBuilder
         public Form1()
         {
             InitializeComponent();
+            Input.Text = CreateGetUnitInfoMessage();
+        }
+
+        public string CreateGetUnitInfoMessage()
+        {
+            string password = "Password";
+            string serialNumber = "SerialNumber";
+            string userID = "UserID";
+
+            StringBuilder xml = new StringBuilder();
+            xml.Append(@"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:mes=""http://mes.health.ge.com"" xmlns:get=""http://getUnitInfo.mes.health.ge.com"">");
+            xml.Append("<soapenv:Header/>");
+            xml.Append("<soapenv:Body>");
+            xml.Append("<mes:getUnitInfo>");
+            xml.Append("<mes:in0>");
+            xml.Append($"<get:password>{password}</get:password>");
+            xml.Append($"<get:serialNumber>{serialNumber}</get:serialNumber>");
+            xml.Append($"<get:userID>{userID}</get:userID>");
+            xml.Append("</mes:in0>");
+            xml.Append("</mes:getUnitInfo>");
+            xml.Append("</soapenv:Body>");
+            xml.Append("</soapenv:Envelope>");
+
+            return xml.ToString();
         }
 
         private void Convert_Click(object sender, EventArgs e)
@@ -49,8 +73,83 @@ namespace XMLBuilder
                 doc.Save(sw);
                 xmldoc = sw.ToString();
             }*/
-            ThatShit();
+            MoreShit();
         }
+
+        public void MoreShit()
+        {
+            string input = Input.Text.Trim();
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(input);
+                XmlNodeList propertyNames = doc.GetElementsByTagName("propertyName");
+                XmlNodeList propertyValues = doc.GetElementsByTagName("propertyValue");
+                XmlNodeList currOp = doc.GetElementsByTagName("currentOperation");
+                XmlNodeList rev = doc.GetElementsByTagName("partRevision");
+                XmlNodeList preOp = doc.GetElementsByTagName("previousOperation");
+                XmlNodeList postOp = doc.GetElementsByTagName("nextOperation");
+                XmlNodeList state = doc.GetElementsByTagName("state");
+
+                List<string> data = new List<string>();
+
+                for (int i = 0; i < propertyNames.Count; ++i)
+                { 
+                    switch (propertyNames[i].InnerText.ToLower())
+                    {
+                        case "partnumber":
+                            data.Add("PartNumber: " + propertyValues[i].InnerText);
+                            break;
+                        case "partrevision":
+                            data.Add("PartRevision: " + propertyValues[i].InnerText);
+                            break;
+                        case "serialnumber":
+                            data.Add("SerialNumber: " + propertyValues[i].InnerText);
+                            break;
+                        case "status":
+                            data.Add("Status: " + propertyValues[i].InnerText);
+                            break;
+                        case "currentroute":
+                            data.Add("CurrentRoute: " + propertyValues[i].InnerText);
+                            break;
+                        case "dateofmanufacturing":
+                            data.Add("DOM: " + propertyValues[i].InnerText);
+                            break;
+                        case "mdpartnumberrev":
+                            data.Add("PN/Rev: " + propertyValues[i].InnerText);
+                            break;
+                    }
+                }
+
+                string currentOperation = currOp[0].InnerText;
+                string previousOperation = preOp[0].InnerText;
+                string nextOperation = postOp[0].InnerText;
+                string currState = state[0].InnerText;
+
+                Output.Text = "Data parsed: " + Environment.NewLine;
+                foreach(string strr in data)
+                {
+                    Output.Text += strr + Environment.NewLine;
+                }
+
+
+                int it = data.Count;
+                /*
+                XElement str = XElement.Parse(input);
+                foreach (XElement XE in str.Elements("properties"))
+                {
+                    string number = XE.Descendants("propertyName").FirstOrDefault()?.Value;
+                    string xmltag = XE.Descendants("propertyValue").FirstOrDefault()?.Value;
+                    
+                }*/
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
+            }
+        }
+
 
         public void ThatShit()
         {
@@ -152,6 +251,10 @@ namespace XMLBuilder
             sb.Append($"<sav:dcpValue>{value}</sav:dcpValue>");
             sb.Append("</sav:DCP>");
             return sb.ToString();
+        }
+        private string GetUnitExample()
+        {
+            return @"";
         }
 
         /*
