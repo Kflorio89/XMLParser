@@ -20,7 +20,78 @@ namespace XMLBuilder
         public Form1()
         {
             InitializeComponent();
-            Input.Text = CreateGetUnitInfoMessage();
+
+            /*string dtm = "23-Sep-2020 22:00 (UTC)";
+            string[] doms = SplitDateTime(dtm);*/
+            Input.Text = CreateStartUnitMessage();
+        }
+
+        private string[] SplitDateTime(string DOM)
+        {
+            // Split this shit: 23-Sep-2020 22:00 (UTC)
+            string[] rslts = new string[2];
+            try
+            {
+                string[] cut1 = DOM.Split(' ');
+                string[] cut2 = cut1[0].Split('-');
+                if (cut2.Length > 2)
+                {
+                    rslts[1] = cut2[2];
+                    switch (cut2[1].ToLower())
+                    {
+                        case "jan":
+                            rslts[0] = "1";
+                            break;
+                        case "feb":
+                            rslts[0] = "2";
+                            break;
+                        case "mar":
+                            rslts[0] = "3";
+                            break;
+                        case "apr":
+                            rslts[0] = "4";
+                            break;
+                        case "may":
+                            rslts[0] = "5";
+                            break;
+                        case "jun":
+                            rslts[0] = "6";
+                            break;
+                        case "jul":
+                            rslts[0] = "7";
+                            break;
+                        case "aug":
+                            rslts[0] = "8";
+                            break;
+                        case "sep":
+                            rslts[0] = "9";
+                            break;
+                        case "oct":
+                            rslts[0] = "10";
+                            break;
+                        case "nov":
+                            rslts[0] = "11";
+                            break;
+                        case "dec":
+                            rslts[0] = "12";
+                            break;
+                        default:
+                            rslts[0] = "N/A";
+                            break;
+                    }
+                }
+                else
+                {
+                    rslts[0] = "N/A";
+                    rslts[1] = "N/A";
+                }
+            }
+            catch (Exception ex)
+            {
+                rslts[0] = "N/A";
+                rslts[1] = "N/A";
+            }
+            return rslts;
         }
 
         public string CreateGetUnitInfoMessage()
@@ -38,6 +109,46 @@ namespace XMLBuilder
             xml.Append($"<get:password>{password}</get:password>");
             xml.Append($"<get:serialNumber>{serialNumber}</get:serialNumber>");
             xml.Append($"<get:userID>{userID}</get:userID>");
+            xml.Append("</mes:in0>");
+            xml.Append("</mes:getUnitInfo>");
+            xml.Append("</soapenv:Body>");
+            xml.Append("</soapenv:Envelope>");
+
+            return xml.ToString();
+        }
+
+        public string CreateStartUnitMessage()
+        {
+            StringBuilder xml = new StringBuilder();
+
+            // Data used in message
+            string operationName = "USA_ALL_Init Packet/ Decon";
+            string partName = "SVC 2418093";
+            string partRevision = "01";
+            string password = "D1FaLMLucoDS.CLN1WA3GM6UCLN1WA3GM6UCLN1WA3GM6U";
+            string routeName = "USA_ALL_Repair_Ops";
+            string serialNumber = "51160-301495090";
+            string userID = "202123456";
+            string workCenter = "test";
+
+            // Start the frame
+            xml.Append(@"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:mes=""http://mes.health.ge.com"" xmlns:get=""http://getUnitInfo.mes.health.ge.com"">");
+            xml.Append("<soapenv:Header/>");
+            xml.Append("<soapenv:Body>");
+            xml.Append("<mes:getUnitInfo>");
+            xml.Append("<mes:in0>");
+
+            // The guts
+            xml.Append($"<star:operationName>{operationName}</star:operationName>");
+            xml.Append($"<star:partName>{partName}</star:partName>");
+            xml.Append($"<star:partRevision>{partRevision}</star:partRevision>");
+            xml.Append($"<star:password>{password}</star:password>");
+            xml.Append($"<star:routeName>{routeName}</star:routeName>");
+            xml.Append($"<star:serialNumber>{serialNumber}</star:serialNumber>");
+            xml.Append($"<star:userID>{userID}</star:userID>");
+            xml.Append($"<star:workCenter>{workCenter}</star:workCenter>");
+
+            // End the frame
             xml.Append("</mes:in0>");
             xml.Append("</mes:getUnitInfo>");
             xml.Append("</soapenv:Body>");
@@ -76,6 +187,9 @@ namespace XMLBuilder
             MoreShit();
         }
 
+        /// <summary>
+        /// For getUnitInfo
+        /// </summary>
         public void MoreShit()
         {
             string input = Input.Text.Trim();
